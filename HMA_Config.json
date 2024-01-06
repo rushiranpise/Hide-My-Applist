@@ -250,7 +250,7 @@
     }
   },
   "scope": {
-    "com.byxiaorun.detector": {
+    "cn.com.bmac.nfc": {
       "useWhitelist": false,
       "excludeSystemApps": false,
       "applyTemplates": [
@@ -258,7 +258,15 @@
       ],
       "extraAppList": []
     },
-    "krypton.tbsafetychecker": {
+    "com.apps.MyXL": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.axis.mobile": {
       "useWhitelist": false,
       "excludeSystemApps": false,
       "applyTemplates": [
@@ -274,6 +282,198 @@
       ],
       "extraAppList": []
     },
+    "com.bpi.ng.app": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.byxiaorun.detector": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.chinamworld.main": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.CIB.Digital.MB": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.csam.icici.bank.imobile": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.current.app": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.dd.doordash": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.doubleugames.DoubleUCasino": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.finaccel.android": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.fss.indus": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.ge.capital.konysbiapp": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.godevelopers.OprekCek": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.gojek.partner": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.hdfcbank.payzapp": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.icici.digitalrupee": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.indiamart.m": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.jio.myjio": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.miniclip.eightballpool": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.msf.kbank.mobile": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.myntra.android": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.ocbc.mobile": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.paypal.android.p2pmobile": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.phonepe.app": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.pubg.newstate": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
     "com.sbi.lotusintouch": {
       "useWhitelist": false,
       "excludeSystemApps": false,
@@ -282,13 +482,45 @@
       ],
       "extraAppList": []
     },
-    "com.sec.android.app.launcher": {
+    "com.sbi.SBIFreedomPlus": {
       "useWhitelist": false,
       "excludeSystemApps": false,
-      "applyTemplates": [],
-      "extraAppList": [
-        "in.amazon.mShop.android.shopping"
-      ]
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.scb.breezebanking.hk": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.shopee.id": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.sitech.ac": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.snapwork.IDBI": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
     },
     "com.teamblind.blind": {
       "useWhitelist": false,
@@ -298,7 +530,87 @@
       ],
       "extraAppList": []
     },
-    "com.fss.indus": {
+    "com.ubercab.driver": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.vipera.ts.starter.QNB": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.vitaodoidao.vdinfos": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.vng.pubgmobile": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "com.zhiliaoapp.musically": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "flar2.devcheck": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "icu.nullptr.applistdetector": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "id.co.bri.brimo": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "krypton.tbsafetychecker": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "sg.ndi.sp": {
+      "useWhitelist": false,
+      "excludeSystemApps": false,
+      "applyTemplates": [
+        "Hide"
+      ],
+      "extraAppList": []
+    },
+    "vn.com.techcombank.bb.app": {
       "useWhitelist": false,
       "excludeSystemApps": false,
       "applyTemplates": [
