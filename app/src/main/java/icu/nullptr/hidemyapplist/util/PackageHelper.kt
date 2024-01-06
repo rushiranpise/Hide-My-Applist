@@ -1,12 +1,16 @@
 package icu.nullptr.hidemyapplist.util
 
 import android.content.pm.ApplicationInfo
+import android.content.pm.IPackageManager
 import android.content.pm.PackageInfo
 import android.graphics.Bitmap
-import android.util.Log
+import android.os.IUserManager
+import android.os.ServiceManager
+import icu.nullptr.hidemyapplist.common.BinderWrapper
 import icu.nullptr.hidemyapplist.common.Constants
 import icu.nullptr.hidemyapplist.hmaApp
 import icu.nullptr.hidemyapplist.service.PrefManager
+import icu.nullptr.hidemyapplist.service.ServiceClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -23,7 +27,8 @@ object PackageHelper {
 
     class PackageCache(
         val info: PackageInfo,
-        val label: String
+        val label: String,
+        val icon: Bitmap
     )
 
     private object Comparators {
@@ -48,13 +53,25 @@ object PackageHelper {
             n2.compareTo(n1)
         }
     }
+
+    private val ipm: IPackageManager by lazy {
+        IPackageManager.Stub.asInterface(
+            BinderWrapper(ServiceManager.getService("package"), ServiceClient.asBinder()!!)
+        )
+    }
+    private val ium: IUserManager by lazy {
+        IUserManager.Stub.asInterface(
+            BinderWrapper(ServiceManager.getService("user"), ServiceClient.asBinder()!!)
+        )
+    }
     private val pm = hmaApp.packageManager
 
     private val packageCache = MutableSharedFlow<Map<String, PackageCache>>(replay = 1)
     private val mAppList = MutableSharedFlow<MutableList<String>>(replay = 1)
-    private val mSortedList = MutableSharedFlow<MutableList<String>>(replay = 1)
-    val appList: SharedFlow<List<String>> = mSortedList
-    val lowerAppList: SharedFlow<List<String>> = mAppList
+    val appList: SharedFlow<List<String>> = mAppList
+
+    private val mRefreshing = MutableSharedFlow<Boolean>(replay = 1)
+    val isRefreshing: SharedFlow<Boolean> = mRefreshing
 
     init {
         invalidateCache()
@@ -62,8 +79,8 @@ object PackageHelper {
 
     fun invalidateCache() {
         hmaApp.globalScope.launch {
+            mRefreshing.emit(true)
             val cache = withContext(Dispatchers.IO) {
-                val start = System.currentTimeMillis()
                 val packageMap = mutableMapOf<String, PackageCache>()
                 for (userId in UserManagerApis.getUserIdsNoThrow()) {
                     val packages = PackageManagerApis.getInstalledPackagesNoThrow(0, userId)
@@ -73,15 +90,16 @@ object PackageHelper {
                             packageInfo.applicationInfo.uid %= 100000
                             val label =
                                 pm.getApplicationLabel(packageInfo.applicationInfo).toString()
-                            PackageCache(packageInfo, label)
+                            val icon = hmaApp.appIconLoader.loadIcon(packageInfo.applicationInfo)
+                            PackageCache(packageInfo, label, icon)
                         }
                     }
                 }
-                Log.d("PackageHelper", "get list in ${System.currentTimeMillis() - start}ms")
                 packageMap
             }
             packageCache.emit(cache)
             mAppList.emit(cache.keys.toMutableList())
+            mRefreshing.emit(false)
         }
     }
 
@@ -95,7 +113,7 @@ object PackageHelper {
         if (PrefManager.appFilter_reverseOrder) comparator = comparator.reversed()
         val list = mAppList.first()
         list.sortWith(firstComparator.then(comparator))
-        mSortedList.emit(list)
+        mAppList.emit(list)
     }
 
     fun loadPackageInfo(packageName: String): PackageInfo = runBlocking {
@@ -107,8 +125,7 @@ object PackageHelper {
     }
 
     fun loadAppIcon(packageName: String): Bitmap = runBlocking {
-        val packageInfo = packageCache.first()[packageName]!!.info
-        hmaApp.appIconLoader.loadIcon(packageInfo.applicationInfo)
+        packageCache.first()[packageName]!!.icon
     }
 
     fun isSystem(packageName: String): Boolean = runBlocking {
