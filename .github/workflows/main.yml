@@ -1,12 +1,9 @@
 name: Main
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ master ]
-    paths-ignore:
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/issue.yml'
-      - '**.md'
+    branches: [ 5ec1cff ]
 
 jobs:
   build:
@@ -28,24 +25,20 @@ jobs:
       - name: Gradle wrapper validation
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
 
       - name: Write key
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         run: |
-          echo officialBuild=true >> local.properties
           echo buildWithGitSuffix=true >> local.properties
-          echo storePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> local.properties
-          echo keyAlias='${{ secrets.ALIAS }}' >> local.properties
-          echo keyPassword='${{ secrets.ALIAS_KEY_PASSWORD }}' >> local.properties
+          echo storePassword=password >> local.properties
+          echo keyAlias=alias >> local.properties
+          echo keyPassword=password >> local.properties
           echo fileDir=`pwd`/key.jks >> local.properties
-          echo "${{ secrets.KEY_STORE }}" | base64 --decode > key.jks
-          echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > app/google-services.json
-
+          keytool -genkey -dname "cn=A, ou=D, o=G, l=P, st=M, c=I" -keystore key.jks -storepass password -alias alias -keyalg RSA -keysize 4096 -validity 10000
       - name: Cache gradle
         uses: actions/cache@v3
         with:
@@ -59,19 +52,16 @@ jobs:
         run: |
           echo 'org.gradle.jvmargs=-Xmx2048m' >> gradle.properties
           ./gradlew prebuild
-
       - name: Build release
         id: buildRelease
         run: |
           ./gradlew :app:buildRelease
           echo "releaseName=$(ls app/build/apk/release/HMA*-release.apk | awk -F '(/|.apk)' '{print $5}')" >> $GITHUB_OUTPUT
-
       - name: Build debug
         id: buildDebug
         run: |
           ./gradlew :app:buildDebug
           echo "debugName=$(ls app/build/apk/debug/HMA*-debug.apk | awk -F '(/|.apk)' '{print $5}')" >> $GITHUB_OUTPUT
-
       - name: Upload release
         if: success()
         uses: actions/upload-artifact@v3
@@ -91,18 +81,3 @@ jobs:
         with:
           name: mappings
           path: "app/build/outputs/mapping/release"
-
-      - name: Post to group
-        if: ${{ github.event_name != 'pull_request' && success() && github.ref == 'refs/heads/master' }}
-        env:
-          CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL }}
-          TOPIC_ID: ${{ secrets.TELEGRAM_TOPIC }}
-          BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          COMMIT_URL: ${{ github.event.head_commit.url }}
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        run: |
-          OUTPUT="app/build/apk/"
-          export release=$(find $OUTPUT -name "HMA*-release.apk")
-          export debug=$(find $OUTPUT -name "HMA*-debug.apk")
-          ESCAPED=`python3 -c 'import json,os,urllib.parse; msg = json.dumps(os.environ["COMMIT_MESSAGE"]); print(urllib.parse.quote(msg if len(msg) <= 1024 else json.dumps(os.environ["COMMIT_URL"])))'`
-          curl -v "https://api.telegram.org/bot${BOT_TOKEN}/sendMediaGroup?chat_id=${CHANNEL_ID}&message_thread_id=${TOPIC_ID}&media=%5B%7B%22type%22:%22document%22,%20%22media%22:%22attach://release%22%7D,%7B%22type%22:%22document%22,%20%22media%22:%22attach://debug%22,%22caption%22:${ESCAPED}%7D%5D"  -F release="@$release" -F debug="@$debug"
