@@ -58,7 +58,7 @@ class HMAService(val pms: IPackageManager) : IHMAService.Stub() {
             }
         }
         if (!this::dataDir.isInitialized) {
-            dataDir = "/data/system/hide_my_applist_" + Utils.generateRandomString(16)
+            dataDir = "/data/system/h_m_a_" + Utils.generateRandomString(16)
         }
 
         File("$dataDir/log").mkdirs()
